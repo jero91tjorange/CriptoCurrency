@@ -1,4 +1,7 @@
-<div class="wall">
+<div
+  class="wall"
+  [style.background]="data.eth + data.btc > 10 ? 'brown' : 'gray'"
+>
   <p>wallets: {{ data.wallet }}</p>
   <p>Name: {{ data.name }}</p>
   <p>eth: {{ data.eth }}</p>

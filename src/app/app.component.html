@@ -10,10 +10,22 @@
     </div>
   </div>
   ---------------------------------------------------------------------
+  <div>
+    Total BTC: {{ getTotalCoin('btc') }} Total ETH: {{ getTotalCoin('eth') }}
+  </div>
+  <h3 *ngIf="getTransactionsStatus()">NO HAY MAS TRANSACIONES PARA MOSTRAR</h3>
+
   <h3>TRANSACCIONES</h3>
   <div style="display:flex; flex-direction:row">
-    <div *ngFor="let i of transactions">
+    <div *ngFor="let i of transactions; let position = index">
       <app-transaction [data]="i"></app-transaction>
+
+      <button
+        [disabled]="i.mineType === 'PoS' && i.miner < 21"
+        (click)="onMine(i, position)"
+      >
+        miner
+      </button>
       <hr />
       <!--Fin ngFor-->
     </div>

@@ -109,4 +109,44 @@ export class AppComponent {
       miner: 5,
     },
   ];
+
+  onMine(transaction: any, position: number) {
+    //Comparar si la posicion de trasaction y el wallet coinnciden
+    const indexFrom = this.wallets.findIndex(
+      (w) => w.wallet === transaction.from
+    );
+    //Sacar la posicion
+    const indexTo = this.wallets.findIndex((w) => w.wallet === transaction.to);
+
+    console.log(indexTo);
+
+    //restarle a la persona que manda
+    this.wallets[indexFrom][transaction.moneyType] =
+      this.wallets[indexFrom][transaction.moneyType] - transaction.quantity;
+    //sumar la transacion
+    this.wallets[indexTo][transaction.moneyType] =
+      this.wallets[indexTo][transaction.moneyType] + transaction.quantity;
+    this.transactions.splice(position, 1);
+  }
+
+  getTransactionsStatus() {
+    const aux = this.transactions.filter(
+      (t) => t.mineType === 'PoS' && t.miner < 20
+    );
+    return this.transactions.length === aux.length;
+  }
+
+  per(type: string) {
+    return this.wallets.reduce(
+      (acc, value) => acc + (value[type] > 0 ? value[type] : 0),
+      0
+    ); //Fin gettotalcoin
+  }
+
+  getTotalCoin(type: string) {
+    return this.wallets.reduce(
+      (acc, value) => acc + (value[type] > 0 ? value[type] : 0),
+      0
+    );
+  }
 }

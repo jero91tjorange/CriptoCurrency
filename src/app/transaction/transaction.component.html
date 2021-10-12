@@ -1,11 +1,15 @@
-<div class="trans">
-  <p>date: {{ data.date }}</p>
+<div
+  class="trans"
+  [style.background]="data.mineType === 'PoW' ? 'yellow' : 'green'"
+>
+  <p>date: {{ data.date | date: 'dd/mm/yyyy'}}</p>
   <p>from: {{ data.from }}</p>
   <p>to: {{ data.to }}</p>
   <p>quantity: {{ data.quantity }}</p>
-  <p>Money type: {{ data.moneyType }}</p>
+  <p>Money type: {{ data.moneyType | uppercase }}</p>
   <p>Mine type: {{ data.mineType }}</p>
   <p>Miner: {{ data.miner }}</p>
+  <ng-Content></ng-Content>
 </div>
 
 <!--
